@@ -35,13 +35,25 @@
     <main>
         <div id="left">
             <canvas id="bullsEye1" style="border: 1px solid;"></canvas><br>
-            <label for="bandWidth">BandWidth:</label>
-            <input type="range" id="bandWidth" min="5" max="50" step="5" value="25"
-                oninput="sliderModule.drawPattern(this)"></input>
-            <p>Current band width: <span id="currentBandWidth"></span></p>
+            <label for="bandWidth1">BandWidth:</label>
+            <input type="range" id="bandWidth1" min="5" max="50" step="5" value="25"
+                oninput="sliderModule.drawPattern1()"></input>
+            <p>Current band width: <span id="currentBandWidth1"></span></p>
         </div>
-        <div id="right">Canvas 2</div>
-        <div id="middle">Canvas 3</div>
+        <div id="right">
+            <canvas id="bullsEye2" style="border: 1px solid;"></canvas><br>
+            <label for="bandWidth2">BandWidth:</label>
+            <input type="range" id="bandWidth2" min="5" max="50" step="5" value="25"
+                oninput="sliderModule.drawPattern2()"></input>
+            <p>Current band width: <span id="currentBandWidth2"></span></p>
+        </div>
+        <div id="middle">
+            <canvas id="bullsEye3" style="border: 1px solid;"></canvas><br>
+            <label for="bandWidth3">BandWidth:</label>
+            <input type="range" id="bandWidth3" min="5" max="50" step="5" value="25"
+                oninput="sliderModule.drawPattern3()"></input>
+            <p>Current band width: <span id="currentBandWidth3"></span></p>
+        </div>
         <br style="clear:both;" />
     </main>
 
