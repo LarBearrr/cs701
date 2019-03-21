@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<title>Bulls Eye</title>
+
+<head>
+    <script src="bullsEye.js"></script>
+    <style>
+        main {
+            width: 100%;
+        }
+        div{
+            width:30%;
+        }
+
+        #left{
+            float:left;
+            margin-left:2%;
+        }
+
+        #middle{
+            position:relative;
+            left:0px;
+            right:0px;
+            margin:auto;
+        }
+
+        #right{
+            float:right;
+            margin-right:2%;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div id="left">
+            <canvas id="bullsEye1" style="border: 1px solid;"></canvas><br>
+            <label for="bandWidth">BandWidth:</label>
+            <input type="range" id="bandWidth" min="5" max="50" step="5" value="25"
+                oninput="sliderModule.drawPattern(this)"></input>
+            <p>Current band width: <span id="currentBandWidth"></span></p>
+        </div>
+        <div id="right">Canvas 2</div>
+        <div id="middle">Canvas 3</div>
+        <br style="clear:both;" />
+    </main>
+
+</html>
