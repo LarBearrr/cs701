@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Stop Sign</title>
+    <meta charset="utf-8">
+    <style>
+        svg {
+            border: 2px solid;
+        }
+    </style>
+</head>
+
+<body>
+
+    <svg width="500" height="300">
+
+        <defs>
+            <g id="stopSign">
+                <polygon points="
+                    50,5
+                    100,5
+                    125,30
+                    125,80
+                    100,105
+                    50,105
+                    25,80
+                    25,30
+                "
+                    fill="red" stroke="grey" stroke-width="2">
+                </polygon>
+                <text
+                    font-family="san-serif"
+                    font-size="32px"
+                    fill="#FFFFFF"
+                    x=35 y=65>
+                        STOP
+                </text>
+            </g>
+       </defs>
+
+       <!-- normal -->
+        <use xlink:href="#stopSign">
+
+        </use>
+
+        <!-- 90 deg clockwise -->
+        <use xlink:href="#stopSign"
+            transform="translate(120,100)
+                       rotate(90, 120, 0)">
+        </use>
+
+        <!-- 180 deg clockwise (upside down) -->
+        <use xlink:href="#stopSign"
+            transform="translate(130,110)
+                        rotate(180, 120, 0)">
+        </use>
+
+        <!-- spinning clockwise -->
+        <use xlink:href="#stopSign"
+            transform="translate(110,110)">
+            <animateTransform
+                attributeName="transform"
+                begin="0s" dur="1s"
+                type="rotate"
+                from="360 185 165"
+                to="0 185 165"
+                repeatCount="indefinite">
+            </animateTransform>
+        </use>
+
+        <circle cx="185" cy="165" r="50" fill="blue" opacity="0.5"></circle>
+
+    </svg>
+
+</body>
+
+</html>
