@@ -13,7 +13,7 @@
 
 <body>
 
-    <svg width="500" height="300">
+    <svg width="500" height="300" viewBox="0 0 500 300">
 
         <defs>
             <g id="stopSign">
@@ -58,13 +58,13 @@
 
         <!-- spinning clockwise -->
         <use xlink:href="#stopSign"
-            transform="translate(110,110)">
+        x=115 y=115>
             <animateTransform
                 attributeName="transform"
-                begin="0s" dur="1s"
+                begin="0s" dur="0.5s"
                 type="rotate"
-                from="360 185 165"
-                to="0 185 165"
+                from="0 185 175"
+                to="360 185 175"
                 repeatCount="indefinite">
             </animateTransform>
         </use>
@@ -72,7 +72,8 @@
         <circle cx="185" cy="165" r="50" fill="blue" opacity="0.5"></circle>
 
     </svg>
-
+    <script>
+    onmousemove = function(e){console.log("mouse location:", e.clientX, e.clientY)}</script>
 </body>
 
 </html>
