@@ -1,36 +1,64 @@
+window.onload = init;
 
-function init(position) {
-    var googlePosition =
-        new google.maps.LatLng(position.latitude, position.longitude);
+// current location
+var latitude, longitude;
 
-    var mapOptions = {
-        zoom: 15,
-        center: googlePosition,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+// Google map
+var map = null;
 
-    var mapElement = document.getElementById("map");
-    map = new google.maps.Map(mapElement, mapOptions);
+// Path
+var path = [];
+
+var lastMarker = null;
+
+let counter = 0;
+
+// register the event handler for the button
+
+function init() {
+    var checkButton = document.getElementById("startButton");
+    checkButton.onclick = getLocation;
 }
 
 function getLocation() {
-
+    document.getElementById('startButton').setAttribute('disabled', 'disabled');
     // asynchronous call with callback success,
     // error functions and options specified
 
     var options = {
-        enableHighAccuracy : true,
-        timeout : 50000,
-        maximumAge : 0
+        enableHighAccuracy: true,
+        timeout: 50000,
+        maximumAge: 0
     };
 
     navigator.geolocation.getCurrentPosition(
-        displayLocation, handleError, options
-    );
+        displayLocation, handleError, options);
+}
+
+function displayLocation(position) {
+
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    var accuracy = position.coords.accuracy;
+    var timestamp = position.timestamp;
+
+    document.getElementById("latitude").innerHTML =
+        "Lat: " + latitude;
+    document.getElementById("longitude").innerHTML =
+        "Longitude: " + longitude;
+    document.getElementById("accuracy").innerHTML =
+        "Accuracy: " + accuracy + " meters";
+    document.getElementById("timestamp").innerHTML =
+        "Timestamp: " + timestamp;
+
+    // Show the google map with the position
+    showOnMap(position.coords);
+
+    setInterval(updateMyLocation, 5000)
 }
 
 function handleError(error) {
-    switch(error.code) {
+    switch (error.code) {
         case 1:
             updateStatus("The user denied permission");
             break;
@@ -48,22 +76,89 @@ function updateStatus(message) {
         "<strong>Error</strong>: " + message;
 }
 
-function displayLocation(position) {
+// initialize the map and show the position
+function showOnMap(pos) {
 
-    latitude = position.coords.latitude;
-    longitude = position.coords.longitude;
-    var accuracy = position.coords.accuracy;
-    var timestamp = position.timestamp;
+    var googlePosition =
+        new google.maps.LatLng(pos.latitude, pos.longitude);
 
+    var mapOptions = {
+        zoom: 15,
+        center: googlePosition,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var mapElement = document.getElementById("map");
+    map = new google.maps.Map(mapElement, mapOptions);
+
+    // add the marker to the map
+    var title = "Location Details";
+    var content = "Lat: " + pos.latitude +
+        ", Long: " + pos.longitude;
+
+    addMarker(map, googlePosition, title, content);
+}
+
+// add position marker to the map
+function addMarker(map, latlongPosition, title, content) {
+
+    var options = {
+        position: latlongPosition,
+        map: map,
+        title: title,
+        clickable: true
+    };
+    var marker = new google.maps.Marker(options);
+
+    var popupWindowOptions = {
+        content: content,
+        position: latlongPosition
+    };
+
+    var popupWindow = new google.maps.InfoWindow(popupWindowOptions);
+
+    google.maps.event.addListener(marker, 'click', function () {
+        popupWindow.open(map);
+    });
+
+    return marker;
+}
+
+function updateMyLocation() {
+    path = [];
+
+    // first point
+    var latlong = new google.maps.LatLng(latitude, longitude);
+    path.push(latlong);
+
+    latitude += Math.random() / 100;
+    longitude -= Math.random() / 100;
+
+    // next point
+    latlong = new google.maps.LatLng(latitude, longitude);
+    path.push(latlong);
+
+    var line = new google.maps.Polyline({
+        path: path,
+        strokeColor: '#0000ff',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+    });
+    line.setMap(map);
+
+    map.panTo(latlong);
+
+    if (lastMarker)
+        lastMarker.setMap(null);
+    // add the new marker
+    lastMarker = addMarker(map, latlong, "Your new location", "You moved to: " + latitude + ", " + longitude);
+
+    document.getElementById("updateNumber").innerHTML =
+        "Update #: " + ++counter;
     document.getElementById("latitude").innerHTML =
-            "Latitude: " + latitude;
+        "Lat: " + latitude;
     document.getElementById("longitude").innerHTML =
-            "Longitude: " + longitude;
-    document.getElementById("accuracy").innerHTML =
-            "Accuracy: " + accuracy + " meters";
+        "Longitude: " + longitude;
     document.getElementById("timestamp").innerHTML =
-            "Timestamp: " + timestamp;
-
-    // Show the google map with the position
-    init(position.coords);
+        "Timestamp: " + Math.floor(Date.now() / 1000);
 }
