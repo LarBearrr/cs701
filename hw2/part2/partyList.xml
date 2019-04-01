@@ -1,5 +1,4 @@
 <senators>
-	
 	<senator>
 		<name>Chuck Schumer</name>
 		<party>Democrat</party>
@@ -20,7 +19,7 @@
 		<name>Elizabeth Warren</name>
 		<party>Democrat</party>
 	</senator>
-	
+
 	<senator>
 		<name>Mitch McConnell</name>
 		<party>Republican</party>
@@ -41,5 +40,4 @@
 		<name>Roy Blunt</name>
 		<party>Republican</party>
 	</senator>
-
 </senators>

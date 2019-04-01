@@ -4,7 +4,7 @@
 <head>
     <title>Democrats/Republicans</title>
     <meta charset="utf-8">
-    <script src="partyWise.js"></script>
+
     <link rel="stylesheet" href="html5.css">
 
     <style type="text/css">
@@ -36,6 +36,15 @@
 
         .dragged {
             opacity: 0.5;
+        }
+
+        li[draggable] {
+            cursor: grab
+        }
+
+        .voted {
+            text-decoration: line-through;
+            cursor: not-allowed;
         }
     </style>
 
@@ -78,7 +87,7 @@
             <p id="msg">Drop over the respective targets</p>
         </article>
     </section>
-
+    <script src="partyWise.js"></script>
 </body>
 
 </html>
