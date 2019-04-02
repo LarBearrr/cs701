@@ -1,11 +1,11 @@
-onmessage = function(e){
-    if ( e.data === "start" ) {
-      // Do some computation
-      done()
-    }
-};
+addEventListener("message", event => {
+  postMessage({
+    start: event.data.start,
+    end: event.data.end,
+    result: sum(event.data.start, event.data.end)
+  });
+})
 
-function done(){
-    // Send back the results to the parent page
-    postMessage("done");
+function sum(start, end) {
+  return (end - start + 1) * (end + start) / 2;
 }
