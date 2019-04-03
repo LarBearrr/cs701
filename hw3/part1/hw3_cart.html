@@ -24,14 +24,9 @@
             qty: 1, price: 27.89}
       ];
 
-      $scope.total = 0;
-      getTotal();
-
       $scope.removeBook = function(index) {
         let book = $scope.books[index];
-
         $scope.books.splice(index, 1);
-
         $scope.total -= book.price * book.qty;
       }
 
@@ -44,10 +39,12 @@
         window.localStorage.setItem('barker_cart', JSON.stringify($scope.books))
       }
 
-      function getTotal() {
-        $scope.books.forEach(book => {
-          $scope.total += book.price * book.qty;
-        })
+      $scope.getTotal = function() {
+        var total = 0;
+        angular.forEach($scope.books, function(key, value) {
+          total += key.price * key.qty;
+        });
+        return total;
       }
     }
   </script>
@@ -64,7 +61,7 @@
             <th>Qty</th>
             <th>UnitPrice</th>
             <th>Item Total</th>
-            <th>Total: {{ total | currency }}  </th>
+            <th>Total: {{ getTotal() | currency }}  </th>
         </tr>
       </thead>
       <tbody >
