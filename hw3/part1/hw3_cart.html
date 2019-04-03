@@ -6,7 +6,16 @@
   <script src="js/angular10.js"></script>
   <script>
     function CartControler($scope) {
-      $scope.books = [
+
+      var data = {
+        book: {
+          title: 'New Book',
+          qty: 1,
+          price: 10.99
+        }
+      }
+
+      $scope.books = JSON.parse(window.localStorage.getItem('barker_cart')) || [
         {title: 'Absolute Java',
             qty: 1, price: 114.95},
         {title: 'Pro HTML5',
@@ -15,8 +24,30 @@
             qty: 1, price: 27.89}
       ];
 
+      $scope.total = 0;
+      getTotal();
+
       $scope.removeBook = function(index) {
+        let book = $scope.books[index];
+
         $scope.books.splice(index, 1);
+
+        $scope.total -= book.price * book.qty;
+      }
+
+      $scope.addBook = function() {
+        $scope.books.push(data.book)
+        $scope.total += data.book.price * data.book.qty
+      }
+
+      $scope.save = function() {
+        window.localStorage.setItem('barker_cart', JSON.stringify($scope.books))
+      }
+
+      function getTotal() {
+        $scope.books.forEach(book => {
+          $scope.total += book.price * book.qty;
+        })
       }
     }
   </script>
@@ -32,17 +63,18 @@
             <th>Title</th>
             <th>Qty</th>
             <th>UnitPrice</th>
-            <th>Total</th>
-            <th></th>
+            <th>Item Total</th>
+            <th>Total: {{ total | currency }}  </th>
         </tr>
       </thead>
       <tbody >
         <tr ng-repeat="book in books">
-            <td>{{book.title}}</td>
+            <td><input ng-model="book.title"
+            value="{{book.title}}"></td>
             <td>
                 <input ng-model="book.qty" size="2">
             </td>
-            <td>{{book.price | currency}}</td>
+            <td><input ng-model="book.price" value="{{book.price | currency}}"></td>
             <td>{{book.price * book.qty | currency}}</td>
             <td>
                 <button ng-click="removeBook($index)">
@@ -51,6 +83,16 @@
             </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            <button ng-click="addBook()">New</button>
+          </td>
+          <td colspan="3" align="right">
+            <button ng-click="save()">Save</button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </body>
 </html>
