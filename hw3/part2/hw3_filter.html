@@ -1,0 +1,16 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <script src="js/angular157.js"></script>
+    <script src="js/tokenize.js"></script>
+  </head>
+  <body>
+   <div ng-controller='TokenController'>
+    Input: <input ng-model='inputString' ng-value="inputString">
+    <br><br>
+    Delimeter: <input ng-model='delimeter' ng-value="delimeter">
+    <p>{{inputString | tokenize}} (Default)</p>
+    <p>{{inputString | tokenize:delimeter}} (With option)</p>
+  </div>
+  </body>
+</html>
