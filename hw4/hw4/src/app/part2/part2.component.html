@@ -1,0 +1,10 @@
+<p>
+  HW4 - Part2
+</p>
+<div>
+  Input: <input [(ngModel)]="inputString" value="inputString">
+  <br><br>
+  Delimeter: <input [(ngModel)]="delimeter" value="delimeter">
+  <p>{{inputString | tokenizer}} (Default)</p>
+  <p>{{inputString | tokenizer:delimeter}} (With option)</p>
+</div>

@@ -1,0 +1,41 @@
+<p>
+  HW4 - Part1
+</p>
+<table>
+  <caption><b>My Books</b></caption>
+  <thead>
+    <tr>
+        <th>Title</th>
+        <th>Qty</th>
+        <th>UnitPrice</th>
+        <th>Item Total</th>
+        <th>Total: {{ getTotal() | currency }}  </th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor="let book of books; index as i">
+        <td><input [(ngModel)]="book.title"
+        value="{{book.title}}"></td>
+        <td>
+            <input [(ngModel)]="book.qty" value="{{book.qty}}" size="2">
+        </td>
+        <td><input [(ngModel)]="book.price" value="{{book.price | currency}}"></td>
+        <td>{{book.price * book.qty | currency}}</td>
+        <td>
+            <button (click)="removeBook(i)">
+                Remove
+            </button>
+        </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2">
+        <button (click)="addBook()">New</button>
+      </td>
+      <td colspan="3" align="right">
+        <button (click)="save()">Save</button>
+      </td>
+    </tr>
+  </tfoot>
+</table>
