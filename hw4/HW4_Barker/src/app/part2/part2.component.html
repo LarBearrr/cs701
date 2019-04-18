@@ -1,0 +1,36 @@
+<p>
+  HW4 - Part2
+</p>
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+        <label for="inputString">Input</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputString"
+          [(ngModel)]="inputString"
+          value="inputString">
+      </div>
+  </div>
+  <div class="col-6">
+      <p class="alert alert-primary">{{inputString | tokenizer}} (Default)</p>
+
+  </div>
+</div>
+<div class="row ">
+  <div class="col-6">
+      <div class="form-group">
+          <label for="inputDelimeter">Delimeter</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputDelimeter"
+            [(ngModel)]="delimeter"
+            value="delimeter">
+      </div>
+  </div>
+  <div class="col-6">
+      <p class="alert alert-danger">{{inputString | tokenizer:delimeter}} (With option)</p>
+  </div>
+</div>
