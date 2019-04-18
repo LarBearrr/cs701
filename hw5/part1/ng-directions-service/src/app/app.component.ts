@@ -10,6 +10,8 @@ export class AppComponent implements OnInit {
 
   title = 'ng-directions-service';
 
+  loading = false;
+
   from: string;
   to: string;
   distance: string;
@@ -25,11 +27,13 @@ export class AppComponent implements OnInit {
   }
 
   getDirections() {
+    this.loading = true;
     this.directionService.getDirections(this.from, this.to).subscribe(data => {
       console.log(data.route);
       this.distance = data.route.distance;
       this.time = data.route.formattedTime;
       this.directions = data.route.legs[0].maneuvers;
+      this.loading = false;
     });
 
   }

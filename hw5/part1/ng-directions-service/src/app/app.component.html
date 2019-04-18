@@ -5,19 +5,38 @@
   </h1>
 </div>
 From:
-<input type="text" [(ngModel)]="from" name="from" id="inputFrom" class="form-control">
+<input
+  type="text"
+  name="from"
+  id="inputFrom"
+  class="form-control"
+  [(ngModel)]="from"
+  (keyup)="getDirections()"
+  >
 <br><br>
 To:
-<input type="text" [(ngModel)]="to" name="to" id="inputTo" class="form-control">
+<input
+  type="text"
+  name="to"
+  id="inputTo"
+  class="form-control"
+  [(ngModel)]="to"
+  (keyup)="getDirections()"
+  >
 <br><br>
 <button type="button" (click)="getDirections()">Get directions</button>
 <br><br>
+<div *ngIf="loading">
+Loading...
+</div>
+<div *ngIf="!loading">
 <h1>Distance: {{distance}}m - Time: {{ time }}</h1>
-<table>
-  <tr *ngFor="let item of directions">
+<table >
+  <tr *ngFor="let item of directions; index as i">
     <td><img src="{{ item.iconUrl }}"></td>
-    <td>{{ index }}</td>
+    <td>#{{ i + 1 }}</td>
     <td><a href="{{item.mapUrl}}" target="_blank">{{ item.narrative }}</a></td>
     <td>{{ item.distance }}m</td>
   </tr>
 </table>
+</div>
