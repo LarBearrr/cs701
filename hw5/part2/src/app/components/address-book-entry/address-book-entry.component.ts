@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Contact } from '../../model/contact';
 import { AddressProviderService } from
@@ -19,7 +19,7 @@ export class AddressBookEntryComponent implements
 	sub: any;
   totalContacts: number;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute, private router: Router,
   		private provider: AddressProviderService) { }
 
   ngOnInit() {
@@ -41,7 +41,13 @@ export class AddressBookEntryComponent implements
   }
 
   delete(id) {
-    alert(`Are you sure you want to delete contact id ${id}?`)
+    let handleDelete = confirm(`Are you sure you want to delete contact id ${id}?`);
+
+    if(handleDelete) {
+      this.provider.removeFriend(id);
+      this.router.navigate(['/']);
+    }
+
   }
 }
 

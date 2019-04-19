@@ -16,11 +16,7 @@ export class AddressBookComponent implements OnInit {
   constructor(private provider: AddressProviderService) { }
 
   ngOnInit() {
-    if (!window.localStorage.getItem('friends')) {
-      window.localStorage.setItem('friends', JSON.stringify(this.provider.getFriends()))
-    }
-
-  	this.friends = JSON.parse(window.localStorage.getItem('friends'));
+  	this.friends = this.provider.getFriends();
   }
 
 }

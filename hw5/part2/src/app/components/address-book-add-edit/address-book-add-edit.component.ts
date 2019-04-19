@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Contact } from '../../model/contact';
 import { AddressProviderService } from
@@ -16,7 +16,7 @@ export class AddressBookAddEditComponent implements OnInit {
 	friend: Contact;
 	title:  string;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute, private router: Router,
   		private provider: AddressProviderService) { }
 
   ngOnInit() {
@@ -29,14 +29,13 @@ export class AddressBookAddEditComponent implements OnInit {
     	this.title = "Add Contact";
 			this.friend = this.provider.addFriend();
 		}
-    console.log(this.friend);
+
   }
 
   save() {
-    let friends = JSON.parse(window.localStorage.getItem('friends'));
-    friends.push(this.friend);
-
-    window.localStorage.setItem('friends', JSON.stringify(friends));
+    if(this.provider.saveFriend(this.friend)) {
+      this.router.navigate(['/']);
+    };
   }
 
 }
